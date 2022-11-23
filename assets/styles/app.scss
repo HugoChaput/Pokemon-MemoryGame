@@ -1,6 +1,7 @@
-@import "custom";
 @import "~bootstrap/scss/bootstrap";
-
-body{
-    background-color: red;
-}
+@import
+ "reset",
+ "mixins",
+ "global",
+ "typography",
+ "animations";

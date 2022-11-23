@@ -3,29 +3,34 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-xl navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBasic" aria-controls="navbarBasic" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse show" id="navbarBasic">
-      <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<!-- Sound -->
+    <audio src="{{asset('music/Lullaby.mp3')}}" id="start_music" loop="loop"></audio>
+    <audio src="{{asset('music/start.mp3')}}" id="startSound" ></audio>
+    <audio src="{{asset('music/unmute.mp3')}}" id="unMute" ></audio>
+    <audio src="{{asset('music/mute.wav')}}" id="muteSound" ></audio>
+    <!-- Pika Loader -->
+    <img src="{{asset('img/pika_load.gif')}}" id="pikaLoader" alt="pikachu loader">
+    
+
+    <div id="modalContainer">
+        <div id="modal">
+        <p id="modalText">Activer le son en jeu ?</p>
+        <div id="btnContainer">
+        <button class="modal_button" id="ouiBtn">Oui</button>
+        <button class="modal_button" id="nonBtn">Non</button>
+        </div>
+        </div>
     </div>
-  </div>
-</nav>
+    <img id="background" src="{{asset('img/background.png')}}" alt="">
+    <button id="mute">
+        <i class="fa-solid fa-volume-xmark" id="fa_sound"></i>
+    </button>
+    <div id="title_container">
+        <div id="logo_container">
+        <img id ="logo_pokemon" src="{{asset('img/logo.png')}}" alt="" width="100%">
+        </div>
+        <h2 id="memoryTitle">Memory game</h2>
+        <button id="startBtn">Appuyez sur ENTRER</button>
+        
+    </div>
 {% endblock %}
