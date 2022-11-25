@@ -14,6 +14,5 @@ import { Tooltip, Toast, Popover } from 'bootstrap';
 import './bootstrap';
 
 import './js/script.js'
-import './js/script_page2.js'
 
 

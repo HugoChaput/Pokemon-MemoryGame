@@ -1,0 +1,29 @@
+// Pikachu Loader
+
+#pikaLoader {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 3;
+    width: 10%;
+  }
+
+//   Background image
+
+#background {
+    position: fixed;
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+  }
+
+  // Class to start animation after modal
+  .kenburns {
+    animation: kenburns-top-left 4s reverse;
+  }
+  // Class to start animation after clicking start
+  .kenburns2 {
+    animation: kenburns-right 0.3s ease-out both;
+  }

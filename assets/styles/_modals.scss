@@ -1,0 +1,72 @@
+ // Modale menu start
+
+ #modalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    border: solid;
+    background-color: rgba(27, 30, 30, 0.886);
+
+    #modal {
+      width: 35%;
+      height: 50%;
+      background-color: rgba(229, 229, 248, 0.704);
+      border-radius: 1rem;
+      // border: solid black 5px;
+      @include for-phone {
+        width: 80%;
+        height: 70%;
+      }
+
+      #modalText {
+        font-family: "Orbitron";
+        font-size: 1.3rem;
+        width: 70%;
+        margin: 5rem auto 0 auto;
+        text-align: center;
+        border-radius: 1rem;
+        padding: 0.6rem;
+        // border: solid;
+        background-color: #3c5aa6;
+        color: white;
+      }
+
+      #btnContainer {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 4.2rem;
+
+        .modal_button {
+          color: white;
+          font-family: "Orbitron";
+          font-weight: bold;
+          font-size: 1.3rem;
+          border-radius: 1rem;
+          padding: 0.4rem 0 0.4rem 0;
+          width: 8rem;
+          height: 3.3rem;
+          // cursor: pointer;
+          border: none;
+          margin-top: 3.5rem;
+        }
+
+        #ouiBtn {
+          background-color: green;
+        }
+        #ouiBtn:hover {
+          background-color: black;
+        }
+
+        #nonBtn {
+          background-color: #b92b2b;
+        }
+        #nonBtn:hover {
+          background-color: black;
+        }
+      }
+    }
+  }
