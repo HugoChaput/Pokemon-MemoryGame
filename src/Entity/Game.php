@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GameRepository::class)]
@@ -15,6 +17,18 @@ class Game
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\ManyToMany(targetEntity: Pokemon::class, inversedBy: 'games')]
+    private Collection $pokemons;
+
+    #[ORM\OneToMany(mappedBy: 'game', targetEntity: GameOptions::class)]
+    private Collection $gameOptions;
+
+    public function __construct()
+    {
+        $this->pokemons = new ArrayCollection();
+        $this->gameOptions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -29,6 +43,60 @@ class Game
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pokemon>
+     */
+    public function getPokemons(): Collection
+    {
+        return $this->pokemons;
+    }
+
+    public function addPokemon(Pokemon $pokemon): self
+    {
+        if (!$this->pokemons->contains($pokemon)) {
+            $this->pokemons->add($pokemon);
+        }
+
+        return $this;
+    }
+
+    public function removePokemon(Pokemon $pokemon): self
+    {
+        $this->pokemons->removeElement($pokemon);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GameOptions>
+     */
+    public function getGameOptions(): Collection
+    {
+        return $this->gameOptions;
+    }
+
+    public function addGameOption(GameOptions $gameOption): self
+    {
+        if (!$this->gameOptions->contains($gameOption)) {
+            $this->gameOptions->add($gameOption);
+            $gameOption->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGameOption(GameOptions $gameOption): self
+    {
+        if ($this->gameOptions->removeElement($gameOption)) {
+            // set the owning side to null (unless already changed)
+            if ($gameOption->getGame() === $this) {
+                $gameOption->setGame(null);
+            }
+        }
 
         return $this;
     }

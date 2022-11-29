@@ -16,6 +16,10 @@ class GameOptions
     #[ORM\Column]
     private ?bool $options = null;
 
+    #[ORM\ManyToOne(inversedBy: 'gameOptions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Game $game = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +33,18 @@ class GameOptions
     public function setOptions(bool $options): self
     {
         $this->options = $options;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
 
         return $this;
     }
