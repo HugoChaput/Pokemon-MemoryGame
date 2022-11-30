@@ -1,21 +1,6 @@
-let secondPageMusic = document.getElementById("secondPageMusic");
-let soundBtn = document.getElementById("mute");
-let faSound = document.getElementById("fa_sound");
-let startBackground = document.getElementById("background");
-let memoryTitle = document.getElementById("memoryTitle");
-
-
-
-// Sound
-let unMute = document.getElementById("unMute");
-let muteSound = document.getElementById("muteSound");
-
-// Sound Volume
-secondPageMusic.volume = 0.3;
-
-
-
-
+import './_variables.js';
+    
+    
     window.onload = function(){
       secondPageMusic.play()
       faSound.classList.replace("fa-volume-xmark", "fa-volume-high");
