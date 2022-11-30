@@ -1,22 +1,5 @@
-let startBackground = document.getElementById("background");
-let soundBtn = document.getElementById("mute");
-let body = document.getElementById("body");
-let faSound = document.getElementById("fa_sound");
-let startBtn = document.getElementById("startBtn");
-let pikaLoader = document.getElementById("pikaLoader");
+import './_variables.js';
 
-
-// Sound
-let backgroundSound = document.getElementById("start_music");
-let startSound = document.getElementById("startSound");
-let unMute = document.getElementById("unMute");
-let muteSound = document.getElementById("muteSound");
-
-// Sound Volume
-backgroundSound.volume = 0.3;
-
-// Sound Flag
-// let MuteSoundFlag = 
 
 // After the page load
 window.onload = function () {
