@@ -1,5 +1,18 @@
-import './_variables.js';
+let startBackground = document.getElementById("background");
+let soundBtn = document.getElementById("mute");
+let body = document.getElementById("body");
+let faSound = document.getElementById("fa_sound");
+let startBtn = document.getElementById("startBtn");
+let pikaLoader = document.getElementById("pikaLoader");
 
+// Sound
+let backgroundSound = document.getElementById("start_music");
+let startSound = document.getElementById("startSound");
+let unMute = document.getElementById("unMute");
+let muteSound = document.getElementById("muteSound");
+
+// Sound Volume
+backgroundSound.volume = 0.3;
 
 // After the page load
 window.onload = function () {
@@ -12,7 +25,7 @@ window.onload = function () {
     unMute.play();
     setTimeout(() => {
       backgroundSound.play();
-    }, 800)
+    }, 800);
     // alert("Activation du son en jeu");
     modal.style.display = "none";
     faSound.classList.replace("fa-volume-xmark", "fa-volume-high");
@@ -65,14 +78,12 @@ soundBtn.addEventListener("click", () => {
 startBtn.addEventListener("click", () => {
   startSound.play();
   backgroundSound.pause();
-  pikaLoader.style.display="block"
+  pikaLoader.style.display = "block";
   console.log(startBackground.classList);
-  startBackground.classList.replace('kenburns' , 'kenburns2')
+  startBackground.classList.replace("kenburns", "kenburns2");
   setTimeout(() => {
-    window.location.href = "secondpage.html";
+    window.location.href = "sign-in";
   }, 3100);
-  // secondPageMusic.play()
-
 });
 
 // Enter keyboard
@@ -80,12 +91,10 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "Enter") {
     startSound.play();
     backgroundSound.pause();
-    pikaLoader.style.display="block"
-    startBackground.classList.replace('kenburns' , 'kenburns2')
+    pikaLoader.style.display = "block";
+    startBackground.classList.replace("kenburns", "kenburns2");
     setTimeout(() => {
-      window.location.href = "secondpage.html";
+      window.location.href = "sign-in";
     }, 3100);
-      // secondPageMusic.play()
-  }})
-
- 
+  }
+});
