@@ -27,6 +27,7 @@ class Game
     #[ORM\OneToMany(mappedBy: 'game', targetEntity: GameUser::class, orphanRemoval: true)]
     private Collection $gameUsers;
 
+   
     public function __construct()
     {
         $this->pokemons = new ArrayCollection();
