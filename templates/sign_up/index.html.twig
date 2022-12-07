@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<img id="background" src="{{asset('img/background.png')}}" alt="">
+
+    <form id="signInForm" action="" method="POST">
+  <!-- Pseudo input -->
+    <div class="form-outline mb-4">
+    <label class="form-label" for="form2Example1">Pseudo</label>
+    <input type="email" id="form2Example1" class="form-control" />
+    </div>
+
+  <!-- Email input -->
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form2Example1">Adresse email</label>
+    <input type="email" id="form2Example1" class="form-control" />
+  </div>
+
+  <!-- Password input -->
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form2Example2">Mot de passe</label>
+    <input type="password" id="form2Example2" class="form-control" />
+  </div>
+
+  <!-- Confirmation Password input -->
+  <div class="form-outline mb-4">
+    <label class="form-label" for="form2Example2">Confirmation du mot de passe</label>
+    <input type="password" id="form2Example2" class="form-control" />
+  </div>
+
+
+
+  <!-- 2 column grid layout for inline styling -->
+  <div class="row mb-4">
+    <div class="col d-flex justify-content-center">
+    </div>
+  </div>
+
+  <!-- Submit button -->
+  <button type="button" class="btn btn-primary btn-block mb-4">S'inscrire</button>
+
+</form>
+{% endblock %}

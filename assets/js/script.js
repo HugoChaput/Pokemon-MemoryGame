@@ -1,2 +1,1 @@
-import '_homepage.js';
-import '_connect-register.js';
+import './_home.js';
