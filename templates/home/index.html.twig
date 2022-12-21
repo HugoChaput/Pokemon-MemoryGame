@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-<!-- Sound -->
+    <!-- Sound -->
     <audio src="{{asset('music/Lullaby.mp3')}}" id="start_music" loop="loop"></audio>
     <audio src="{{asset('music/start.mp3')}}" id="startSound" ></audio>
     <audio src="{{asset('music/unmute.mp3')}}" id="unMute" ></audio>
     <audio src="{{asset('music/mute.wav')}}" id="muteSound" ></audio>
+
     <!-- Pika Loader -->
     <img src="{{asset('img/pika_load.gif')}}" id="pikaLoader" alt="pikachu loader">
     
-
     <div id="modalContainer">
         <div id="modal">
         <p id="modalText">Activer le son en jeu ?</p>
@@ -21,16 +21,18 @@
         </div>
         </div>
     </div>
+
     <img id="background" src="{{asset('img/background.png')}}" alt="">
+
     <button id="mute">
         <i class="fa-solid fa-volume-xmark" id="fa_sound"></i>
     </button>
+
     <div id="title_container">
         <div id="logo_container">
         <img id ="logo_pokemon" src="{{asset('img/logo.png')}}" alt="" width="100%">
         </div>
         <h2 id="memoryTitle">Memory game</h2>
         <button id="startBtn">Appuyez sur ENTRER</button>
-        
     </div>
 {% endblock %}
