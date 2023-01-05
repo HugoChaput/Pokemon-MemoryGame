@@ -82,7 +82,7 @@ startBtn.addEventListener("click", () => {
   console.log(startBackground.classList);
   startBackground.classList.replace("kenburns", "kenburns2");
   setTimeout(() => {
-    window.location.href = "sign-in";
+    window.location.href = "/login";
   }, 3100);
 });
 
@@ -94,7 +94,7 @@ window.addEventListener("keydown", (event) => {
     pikaLoader.style.display = "block";
     startBackground.classList.replace("kenburns", "kenburns2");
     setTimeout(() => {
-      window.location.href = "sign-in";
+      window.location.href = "/login";
     }, 3100);
   }
 });
