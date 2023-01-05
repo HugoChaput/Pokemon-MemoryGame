@@ -22,11 +22,21 @@
 
     <body id="body">
         <header>
+            {# MENU #}
+            <nav>
+                <a href="{{ path('app_home') }}">Accueil</a>
 
+                {# Affichage des boutons connexion et déconnexion si un utilisateur est connecté ou non. #}
+                {% if(not app.user) %}
+                    <a href="{{ path('app_login') }}">Connexion</a>
+                {% else %}
+                    <a href="{{ path('app_logout') }}" onclick="return window.confirm('Confirmer la déconnexion ?')">Déconnexion</a>
+                {% endif %}
+            </nav>
         </header>
 
         {% block body %}{% endblock %}
-
+        
         <footer>
 
         </footer>
