@@ -6,7 +6,7 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.scss';
+require('./styles/app.scss');
 
 import { Tooltip, Toast, Popover } from 'bootstrap';
 
@@ -14,5 +14,3 @@ import { Tooltip, Toast, Popover } from 'bootstrap';
 import './bootstrap';
 
 import './js/script.js';
-
-
