@@ -46,7 +46,7 @@ class UserLoginAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('app_game'));
+        return new RedirectResponse($this->urlGenerator->generate('app_user_profile'));
     }
 
     protected function getLoginUrl(Request $request): string
