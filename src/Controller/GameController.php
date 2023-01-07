@@ -13,6 +13,12 @@ class GameController extends AbstractController
     {
         return $this->render('game/index.html.twig', [
             'controller_name' => 'GameController',
+            'showCardsAtStart' => $_POST['showCardsAtStart'],
+            'timer' => $_POST['timer'],
+            'pairsNumber' => $_POST['pairsNumber'],
+            'triesNumber' => $_POST['triesNumber'],
+            'gameMode' => $_POST['gameMode'],
         ]);
+        
     }
 }

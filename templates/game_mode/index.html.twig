@@ -1,8 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Game Mode!{% endblock %}
+{% block title %}Choix du mode de jeu{% endblock %}
 
 {% block body %}
-<img id="background" src="{{asset('img/background.png')}}" alt="">
+    {# Envoi d'un formulaire avec le mode choisi #}
+    <form method="post" action="{{ path('app_difficulty') }}">
+		<input type="radio" id="pokemonPairs" name="gameMode" value="pokemonPairs" checked>
+        <label for="pokemonPairs">Paires de pokemon</label><br>
 
+        <input type="radio" id="typePairs" name="gameMode" value="typePairs">
+        <label for="typePairs">Paires de types</label><br>
+
+        <input type="radio" id="genPairs" name="gameMode" value="genPairs">
+        <label for="genPairs">Paires de générations</label><br><br>
+
+        <input type="submit" value="OK" />
+    </form>
 {% endblock %}
