@@ -25,8 +25,11 @@
         Non
     {% endif %}<br>
     Nombre de pairs : {{pairsNumber}}<br>
-    Nombre d'essais : {{triesNumber}}
+    Nombre d'essais : {{triesNumber}}<br><br>
 
-
-
+    {#
+    {% for pokemon in pokemonList %}
+        {{pokemon.name}}<br>
+    {% endfor %}
+    #}
 {% endblock %}
