@@ -34,5 +34,17 @@
                 }
             }
         }
+
+        #pokemonBoxes {
+            display: grid;
+            grid-template-columns: none;
+        }
+        .box {
+            /*
+            width:200px;
+            height:200px;
+            */
+            border: black 1px solid;
+        }
     }
 }
