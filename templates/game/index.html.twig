@@ -27,9 +27,12 @@
     Nombre de pairs : {{pairsNumber}}<br>
     Nombre d'essais : {{triesNumber}}<br><br>
 
-    {#
-    {% for pokemon in pokemonList %}
-        {{pokemon.name}}<br>
-    {% endfor %}
-    #}
+    {# Grille des pokemon #}
+    <div id="pokemonBoxes">
+        {% for i in 0..(dimensions.x - 1) %}
+            {% for j in 0..(dimensions.y - 1) %}
+                <div id="box{{pairsNumber}}" class="box" data-x="{{i}}" data-y="{{j}}"></div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}
