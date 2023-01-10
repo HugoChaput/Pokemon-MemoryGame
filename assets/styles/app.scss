@@ -36,8 +36,9 @@
         }
 
         #pokemonBoxes {
+            --numberGridColumns: auto auto;
             display: grid;
-            grid-template-columns: none;
+            grid-template-columns: var(--numberGridColumns);
         }
         .box {
             /*
