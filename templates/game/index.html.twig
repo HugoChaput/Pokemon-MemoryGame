@@ -27,6 +27,9 @@
     Nombre de pairs : {{pairsNumber}}<br>
     Nombre d'essais : {{triesNumber}}<br><br>
 
+    {# Met à disposition du javascript le nombre de colonnes de la grille #}
+    <div class="gridColumns" data-columnsNumber="{{dimensions.y}}"></div>
+
     {# Grille des pokemon #}
     <div id="pokemonBoxes">
         {% for i in 0..(dimensions.x - 1) %}

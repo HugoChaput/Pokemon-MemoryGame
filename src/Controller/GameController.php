@@ -22,6 +22,10 @@ class GameController extends AbstractController
                 shuffle($pokemonList);
                 //On garde seulement le nombre de pairs choisi
                 array_splice($pokemonList, $_POST['pairsNumber'], count($pokemonList));
+                //Ajoute les meme pokemon pour avoir des paires
+                $pokemonList=array_merge($pokemonList, $pokemonList);
+                //Randomise le tableau
+                shuffle($pokemonList);
             break;
             
             case 'typePairs':
@@ -48,6 +52,8 @@ class GameController extends AbstractController
                         array_push($pokemonList, $pokemon);
                     }
                 }
+                //Randomise le tableau
+                shuffle($pokemonList);
             break;
 
             case 'genPairs':
@@ -74,12 +80,64 @@ class GameController extends AbstractController
                         array_push($pokemonList, $pokemon);
                     }
                 }
+                //Randomise le tableau
+                shuffle($pokemonList);
             break;
             
             default:
                 /* Erreur */;
         }
 
+        //Selon le nombre de cases on affecte des dimensions
+        switch ($_POST['pairsNumber'] * 2)
+        {
+            case 4:
+                $dimensions=['y'=>'2', 'x'=>'2'];
+            break;
+            
+            case 6:
+                $dimensions=['y'=>'2', 'x'=>'3'];
+            break;
+            
+            case 8:
+                $dimensions=['y'=>'2', 'x'=>'4'];
+            break;
+            
+            case 10:
+                $dimensions=['y'=>'2', 'x'=>'5'];
+            break;
+            
+            case 12:
+                $dimensions=['y'=>'3', 'x'=>'4'];
+            break;
+            
+            case 14:
+                $dimensions=['y'=>'2', 'x'=>'7'];
+            break;
+            
+            case 16:
+                $dimensions=['y'=>'4', 'x'=>'4'];
+            break;
+            
+            default:
+                /* Erreur */;
+        }
+
+        //Création de la grille
+        $k=0; //Compteur pour $pokemonList
+        //Lignes
+        for ($i=0 ; $i<$dimensions['x'] ; $i++)
+        {
+            //Colonnes
+            for ($j=0 ; $j<$dimensions['y'] ; $j++)
+            {
+                $pokemonGrid[$i][$j]=$pokemonList[$k];
+                $k++;
+            }
+        }
+        
+        //Stockage de la grille en session
+        $_SESSION['pokemonGrid']=$pokemonGrid;
 
         return $this->render('game/index.html.twig', [
             'controller_name' => 'GameController',
@@ -88,7 +146,7 @@ class GameController extends AbstractController
             'pairsNumber' => $_POST['pairsNumber'],
             'triesNumber' => $_POST['triesNumber'],
             'gameMode' => $_POST['gameMode'],
-            'pokemonList' => $pokemonList,
+            'dimensions' => $dimensions,
         ]);
         
     }
