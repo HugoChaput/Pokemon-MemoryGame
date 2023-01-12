@@ -149,7 +149,8 @@ class Pokemon
         $pokemon = [
             'api_id' => $this->api_id,
             'name' => $this->name,
-            'image' => $this->image
+            'image' => $this->image,
+            'generation' => $this->generation
         ];
 
         return $pokemon;

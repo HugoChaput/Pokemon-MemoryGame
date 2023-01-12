@@ -23,7 +23,8 @@ async function handleClick(e) {
     dataToSend = {
         "boxClickedPositionX" : dataset.x,
         "boxClickedPositionY" : dataset.y,
-        "clickNumber" : clickNumber
+        "clickNumber" : clickNumber,
+        "pairsFoundNumber" : pairsFoundNumber
     };
 
     //Préparation et envoi du fetch, pour envoyer la position de la case cliquée et si c'est le 1ere ou 2eme cliquée.
@@ -55,7 +56,7 @@ async function handleClick(e) {
         clickNumber=0; //Réinitialisation du nombre de clics
 
         //Si les 2 cases sont identiques
-        if (fetchResult.identicalBoxes)//---------------------------- Voir s'il faut tout récupérer dans le .then
+        if (fetchResult.identicalBoxes)
         {
             //Incrémentation du nombre de paires trouvées
             pairsFoundNumber++;
@@ -63,6 +64,7 @@ async function handleClick(e) {
             //Si toutes les paires ont été trouvées
             if(pairsFoundNumber==pairsNumber)
             {
+                //Affichage du score
                 document.getElementById("finPartie").style.display = "block";
                 document.getElementById("finPartie").innerHTML="Score : "+fetchResult.score+"<br><br><a href=\"/user-profile\">Profil Utilisateur</a>";
             }

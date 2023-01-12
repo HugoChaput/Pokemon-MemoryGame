@@ -27,9 +27,9 @@ class GameController extends AbstractController
             'showCardsAtStart' => $_POST['showCardsAtStart'],
             'timer' => $_POST['timer'],
             'pairsNumber' => $_POST['pairsNumber'],
-            'triesNumber' => $_POST['triesNumber'],
+            'triesNumber' => $_POST['pairsNumber'],
             'gameMode' => $_POST['gameMode']
-        ];
+        ];//Implémenter le $_POST['triesNumber']
 
         //Créer une liste de pokemon selon le mode de jeu
         switch ($_POST['gameMode'])
@@ -49,15 +49,16 @@ class GameController extends AbstractController
             
             case 'typePairs':
                 $pokemonList=[]; //Initialisation du tableau pour l'utiliser dans le foreach
+                $typeList=[];
                 //Récupère tous les types
-                $typeList=$typeRepository->findAll();
+                $types=$typeRepository->findAll();
                 //Randomise le tableau
-                shuffle($typeList);
+                shuffle($types);
                 //On garde seulement le nombre de pairs choisi
-                array_splice($typeList, $_POST['pairsNumber'], count($typeList));
+                array_splice($types, $_POST['pairsNumber'], count($types));
                 
                 //Récupération des pokemon pour chaque type
-                foreach ($typeList as $type)
+                foreach ($types as $type)
                 {
                     //Récupère tous les pokemon du type courant et transforme le résultat en tableau
                     $pokemonListFromType=$type->getPokemon()->toArray();
@@ -69,8 +70,11 @@ class GameController extends AbstractController
                     foreach ($pokemonListFromType as $pokemon)
                     {
                         array_push($pokemonList, $pokemon);
+                        $typeListElement=['id' => $pokemon->getApiId(), 'type' => $type->getType()];
+                        array_push($typeList, $typeListElement);
                     }
                 }
+                $_SESSION['typeList']=$typeList;
                 //Randomise le tableau
                 shuffle($pokemonList);
             break;
@@ -241,53 +245,84 @@ class GameController extends AbstractController
 					'y'=>$data['boxClickedPositionY']
 				);
 				
-				//Vérifier si les 2 cases cliquées sont identiques
-				if ($_SESSION['pokemonGrid'][$_SESSION['click1']['x']][$_SESSION['click1']['y']]['api_id'] == $_SESSION['pokemonGrid'][$_SESSION['click2']['x']][$_SESSION['click2']['y']]['api_id'])
+				//Selon le mode de jeu on va comparer des choses différentes pour savoir si les 2 cases cliquées sont identiques
+                switch ($_SESSION['Difficulty']['gameMode'])
+                {
+                    //Compare l'api_id
+                    case 'pokemonPairs':
+                        $boxClicked1=$_SESSION['pokemonGrid'][$_SESSION['click1']['x']][$_SESSION['click1']['y']]['api_id'];
+                        $boxClicked2=$_SESSION['pokemonGrid'][$_SESSION['click2']['x']][$_SESSION['click2']['y']]['api_id'];
+                        break;
+                    //Compare le type à l'aide d'un tableau typeList sauvegardé en SESSION
+                    case 'typePairs':
+                        //Cherche l'api_id dans le tableau typeList et récupère le nom du type associé
+                        $index=array_search($_SESSION['pokemonGrid'][$_SESSION['click1']['x']][$_SESSION['click1']['y']]['api_id'], array_column ($_SESSION['typeList'], 'id'));
+                        $boxClicked1=$_SESSION['typeList'][$index]['type'];
+                        $index=array_search($_SESSION['pokemonGrid'][$_SESSION['click2']['x']][$_SESSION['click2']['y']]['api_id'], array_column ($_SESSION['typeList'], 'id'));
+                        $boxClicked2=$_SESSION['typeList'][$index]['type'];
+                        break;
+                    //Compare la generation
+                    case 'genPairs':
+                        $boxClicked1=$_SESSION['pokemonGrid'][$_SESSION['click1']['x']][$_SESSION['click1']['y']]['generation'];
+                        $boxClicked2=$_SESSION['pokemonGrid'][$_SESSION['click2']['x']][$_SESSION['click2']['y']]['generation'];
+                        break;
+                    default:
+                }
+
+                //Vérifier si les 2 cases cliquées sont identiques
+				if ($boxClicked1 == $boxClicked2)
 				{
 					//identiques
 					$identicalBoxes=true;
-                    /*
-                    //Récupérer la Game courrante pour récupérer le GameUsers pour y stocker le score
-                    $game=$gameRepository->finById($_SESSION['gameId']);
-                    $gameUser=$game->getGameUsers();
-                    */
-                    //Calcul du score selon la difficulté
-                    //Montrer les cartes au départ
-                    if ($_SESSION['Difficulty']['showCardsAtStart']=='showCardsAtStartNo')
+                    
+                    //Si la partie est finie
+                    if ($_SESSION['Difficulty']['pairsNumber'] == $data['pairsFoundNumber']+1)//pairsFoundNumber a un retard de 1 pour le backend
                     {
-                        $score+=1;
+                        //Récupérer la Game courrante pour récupérer le GameUser pour y stocker le score
+                        $game=$gameRepository->findOneBy(['id' => $_SESSION['gameId']]);
+                        $gameUsers=$game->getGameUsers();
+                        foreach ($gameUsers as $item)
+                        {
+                            $gameUser=$item;
+                        }
+                        
+                        //Calcul du score selon la difficulté
+                        //Montrer les cartes au départ
+                        if ($_SESSION['Difficulty']['showCardsAtStart']=='showCardsAtStartNo')
+                        {
+                            $score+=1;
+                        }
+                        //Timer
+                        if ($_SESSION['Difficulty']['timer']=='timerYes')
+                        {
+                            $score+=1;
+                        }
+                        //Nombre de paires
+                        $score+=$_SESSION['Difficulty']['pairsNumber'];
+                        //Nombre d'essais ----------------- triesNumber pas implémenté
+                        if ($_SESSION['Difficulty']['triesNumber'] > $_SESSION['Difficulty']['pairsNumber'])
+                        {
+                            $score=$score - ($_SESSION['Difficulty']['triesNumber'] - $_SESSION['Difficulty']['pairsNumber']);
+                        }
+                        //Mode de jeu
+                        switch($_SESSION['Difficulty']['gameMode'])
+                        {
+                            case 'pokemonPairs':
+                                $score+=0;
+                                break;
+                            case 'typePairs':
+                                $score+=2;
+                                break;
+                            case 'genPairs':
+                                $score+=5;
+                                break;
+                            default:
+                        }
+                        
+                        //Sauvegarder le score
+                        $gameUser->setScore($score);
+                        $gameUserRepository->save($gameUser, true);
                     }
-                    //Timer
-                    if ($_SESSION['Difficulty']['timer']=='timerYes')
-                    {
-                        $score+=1;
-                    }
-                    //Nombre de paires
-                    $score+=$_SESSION['Difficulty']['pairsNumber'];
-                    //Nombre d'essais ----------------- triesNumber pas implémenté
-                    if ($_SESSION['Difficulty']['triesNumber'] > $_SESSION['Difficulty']['pairsNumber'])
-                    {
-                        $score=$score - ($_SESSION['Difficulty']['triesNumber'] - $_SESSION['Difficulty']['pairsNumber']);
-                    }
-                    //Mode de jeu
-                    switch($_SESSION['Difficulty']['gameMode'])
-                    {
-                        case 'pokemonPairs':
-                            $score+=0;
-                            break;
-                        case 'typePairs':
-                            $score+=2;
-                            break;
-                        case 'genPairs':
-                            $score+=5;
-                            break;
-                        default:
-                    }
-                    /*
-                    //Sauvegarder le score
-                    $gameUser->setScore($score);
-                    $gameUserRepository->save($gameUser, true);
-                    */
 				}
 				else
 				{
