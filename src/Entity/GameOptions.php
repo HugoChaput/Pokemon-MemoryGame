@@ -14,7 +14,7 @@ class GameOptions
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?string $option = null;
+    private ?string $optionName = null;
 
     #[ORM\ManyToOne(inversedBy: 'gameOptions')]
     #[ORM\JoinColumn(nullable: false)]
@@ -25,14 +25,14 @@ class GameOptions
         return $this->id;
     }
 
-    public function getOption(): ?string
+    public function getOptionName(): ?string
     {
-        return $this->option;
+        return $this->optionName;
     }
 
-    public function setOption(string $option): self
+    public function setOptionName(string $optionName): self
     {
-        $this->option = $option;
+        $this->optionName = $optionName;
 
         return $this;
     }
