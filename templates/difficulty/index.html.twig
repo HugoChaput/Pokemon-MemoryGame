@@ -1,8 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DifficultyController!{% endblock %}
+{% block title %}Choix de la difficulté{% endblock %}
 
 {% block body %}
-<img id="background" src="{{asset('img/background.png')}}" alt="">
+    <form method="post" action="{{ path('app_game') }}">
+        <p>Montrer les cartes au départ : </p>
+		<input type="radio" id="showCardsAtStartYes" name="showCardsAtStart" value="showCardsAtStartYes">
+        <label for="showCardsAtStartYes">Oui</label>
+        <input type="radio" id="showCardsAtStartNo" name="showCardsAtStart" value="showCardsAtStartNo" checked>
+        <label for="showCardsAtStartNo">Non</label><br>
 
+        <p>Timer : </p>
+		<input type="radio" id="timerYes" name="timer" value="timerYes">
+        <label for="timerYes">Oui</label>
+        <input type="radio" id="timerNo" name="timer" value="timerNo" checked >
+        <label for="timerNo">Non</label><br>
+
+        <!-- Par facilité on peut décider de permettre 8 pairs maximum (le nombre de generations, le nombre de types est plus grand). -->
+        <label for="pairsNumber">Nombre de pairs : </label><br>
+        <input type="number" id="pairsNumber" name="pairsNumber" value="3"><br>
+
+        <label for="triesNumber">Nombre d'essais : </label><br>
+        <input type="number" id="triesNumber" name="triesNumber" value="0"><br><br>
+
+        <input type="hidden" id="gameMode" name="gameMode" value="{{gameMode}}" />
+
+        <input type="submit" value="OK" />
+    </form>
 {% endblock %}

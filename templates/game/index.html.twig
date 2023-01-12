@@ -1,20 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Game{% endblock %}
+{% block title %}Partie{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {# Elements de la partie #}
+    {#
+    Mode de jeu : 
+    {% if gameMode == 'pokemonPairs'%}
+            Paires de pokemon
+    {% elseif gameMode == 'typePairs' %}
+            Paires de types
+    {% elseif gameMode == 'genPairs' %}
+        Paires de générations
+    {% endif %}<br>
+    Montrer les cartes au départ : 
+    {% if showCardsAtStart ends with 'Yes' %}
+        Oui
+    {% else %}
+        Non
+    {% endif %}<br>
+    Timer : 
+    {% if timer ends with 'Yes' %}
+        Oui
+    {% else %}
+        Non
+    {% endif %}<br>
+    Nombre de pairs : {{pairsNumber}}<br>
+    Nombre d'essais : {{triesNumber}}<br><br>
+    #}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {# Met à disposition du javascript le nombre de colonnes de la grille #}
+    <div class="gridColumns" data-columns-number="{{dimensions.y}}"></div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'F:/DEV/Pokemon_Project/App/src/Controller/GameController.php'|file_link(0) }}">src/Controller/GameController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'F:/DEV/Pokemon_Project/App/templates/game/index.html.twig'|file_link(0) }}">templates/game/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {# Grille des pokemon #}
+    <div id="pokemonGrid">
+        {% set k = 1 %}{# compteur pour l'id "box" des cases #}
+        {% for i in 0..(dimensions.x - 1) %}
+            {% for j in 0..(dimensions.y - 1) %}
+                <div id="box{{k}}" class="box" data-x="{{i}}" data-y="{{j}}"></div>
+                {% set k = k + 1 %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div id="finPartie"></div>
 {% endblock %}
