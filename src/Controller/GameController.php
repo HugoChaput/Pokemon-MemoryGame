@@ -222,7 +222,7 @@ class GameController extends AbstractController
         $identicalBoxes=false; //Préciser si les cases sont identiques dans le retour au front end.
         $score=0;
         
-        //Récupère le body (json) de la requete décodé en array
+        //Récupère le body (json) de la requete transformé en array
         $data = $request->toArray();
 
 		//-------------- Changer les $_POST -----------------
