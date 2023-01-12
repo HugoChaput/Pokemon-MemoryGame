@@ -3,6 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+{#
     <!-- Sound -->
     <audio src="{{asset('music/Lullaby.mp3')}}" id="start_music" loop="loop"></audio>
     <audio src="{{asset('music/start.mp3')}}" id="startSound" ></audio>
@@ -35,4 +36,7 @@
         <h2 id="memoryTitle">Memory game</h2>
         <button id="startBtn">Appuyez sur ENTRER</button>
     </div>
+#}
+
+    <a href="{{ path('app_login') }}">Entrer</a>
 {% endblock %}

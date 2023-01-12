@@ -142,4 +142,16 @@ class Pokemon
 
         return $this;
     }
+
+    //Converti un objet pokemon en tableau avec seulement l'api_id, le name et l'image.
+    public function convertToArray()
+    {
+        $pokemon = [
+            'api_id' => $this->api_id,
+            'name' => $this->name,
+            'image' => $this->image
+        ];
+
+        return $pokemon;
+    }
 }
